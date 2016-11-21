@@ -60,24 +60,28 @@ Notice that you also explicitly ComponentScan your Main package or anything else
 
 5. Apply it do your controller as an annotation either at the class or the method (or both):
 
-    @Before({
-        @BeforeElement(value = RestrictByRole.class, flags = {"admin", "manager"}),
-    })
+    @Before( @BeforeElement(RestrictByRole.class))
+
+6. You can also pass a list of strings for the interceptor to consider.  Here the flags "admin" and "manager" are passed in to the RestrictByRole implementation method
+
+    @Before(
+        @BeforeElement(value = RestrictByRole.class, flags = {"admin", "manager"})
+    )
 
     
-6. You can apply several layers in sequence like this
+7. You can apply several interceptors in sequence like this
     @Before({
         @BeforeElement(IPWhiteListCheck.class),
         @BeforeElement(LoginWall.class),
         @BeforeElement(value = RestrictByRole.class, flags = {"admin", "manager"})
     })
 
-7. There's also an After interceptor you can use
-    @After({
+8. There's also an After interceptor you can use
+    @After(
         @AfterElement(DoThisAfter.class)
-    })
+    )
 
-8. Many common use cases have already been addressed in premade classes found in com/kastkode/springsandwich/filter/coldcuts/.  Consider extending them as a starting point for your interceptors
+9. Many common use cases have already been addressed in premade interceptors found in com/kastkode/springsandwich/filter/coldcuts/.  Consider extending them as a starting point for your interceptor
 
 
 ### FAQ
