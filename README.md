@@ -16,6 +16,7 @@ This project makes it easy to annotate security or any other interceptors for yo
 
 2. include it in your project's pom.xml:
 
+```
     <dependencies>
         <dependency>
             <groupId>com.kastkode</groupId>
@@ -23,16 +24,20 @@ This project makes it easy to annotate security or any other interceptors for yo
             <version>[1.0,)</version>
         </dependency>
     </dependencies>
+```
 
 3. in your application, tell Spring to pick up the library. For instance in Spring Boot you would add this annotation to your Main starting class:
 
+```
     @ComponentScan(basePackages = {"com.kastkode.springsandwich.filter", "com,your-app-here.*"})
     public class Main { ... }
+```
 
 Notice that you also explicitly ComponentScan your Main package or anything else you want scanned, since you're overriding Spring Boot's default scanning.
 
 4. Now the fun part -- use it!  Write your handler that you'd like to invoke before your controller method:
     
+```
     import javax.servlet.http.HttpServletRequest;
     import javax.servlet.http.HttpServletResponse;
     import org.springframework.stereotype.Component;
@@ -57,29 +62,40 @@ Notice that you also explicitly ComponentScan your Main package or anything else
             return Flow.CONTINUE;
         }
     }
+```
 
 5. Apply it do your controller as an annotation either at the class or the method (or both):
 
+```
     @Before( @BeforeElement(RestrictByRole.class))
+```
 
 6. You can also pass a list of strings for the interceptor to consider.  Here the flags "admin" and "manager" are passed in to the RestrictByRole implementation method
 
+```
     @Before(
         @BeforeElement(value = RestrictByRole.class, flags = {"admin", "manager"})
     )
+```
 
     
 7. You can apply several interceptors in sequence like this
+
+```
     @Before({
         @BeforeElement(IPWhiteListCheck.class),
         @BeforeElement(LoginWall.class),
         @BeforeElement(value = RestrictByRole.class, flags = {"admin", "manager"})
     })
+```
 
 8. There's also an After interceptor you can use
+
+```
     @After(
         @AfterElement(DoThisAfter.class)
     )
+```
 
 9. Many common use cases have already been addressed in premade interceptors found in com/kastkode/springsandwich/filter/coldcuts/.  Consider extending them as a starting point for your interceptor
 
