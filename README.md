@@ -67,7 +67,7 @@ I like this better than Spring Security for the folloowing reasons:
 3. in your application, tell Spring to pick up the library. For instance in Spring Boot you would add this annotation to your Main starting class:
 
     ```
-    @ComponentScan(basePackages = {"com.kastkode.springsandwich.filter", "com,your-app-here.*"})
+    @ComponentScan(basePackages = {"com.kastkode.springsandwich.filter", "com.your-app-here.*"})
     public class Main { ... }
     ```
 
