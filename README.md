@@ -71,7 +71,7 @@ I like this better than Spring Security for the folloowing reasons:
     public class Main { ... }
     ```
 
-Notice that you also explicitly ComponentScan your Main package or anything else you want scanned, since you're overriding Spring Boot's default scanning.
+Notice that here we explicitly ComponentScan our Main package as well since we're overriding Spring Boot's default scanning.
 
 
 ### More details on how to use it
