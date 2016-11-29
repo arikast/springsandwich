@@ -74,7 +74,7 @@ I like this better than Spring Security for the folloowing reasons:
 Notice that here we explicitly ComponentScan our Main package as well since we're overriding Spring Boot's default scanning.
 
 
-### More details on how to use it
+### More details on how to use SpringSandwich
 
 Now the fun part -- use it!  Write your handler that you'd like to invoke before your controller method:
     
