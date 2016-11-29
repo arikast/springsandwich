@@ -1,6 +1,36 @@
 ### What is it
 
-This project makes it easy to annotate security or any other interceptors for your Spring web controllers in much the same way that you currently annotate your routes or endpoints.  I like this better than Spring Security for the folloowing reasons:
+This project lets you annotate security or other interceptors for your Spring web controllers in much the same way that you normally annotate your routes or endpoints.  
+
+For example, to secure all the endpoints in your @Controller class, add an annotation like this:
+
+```
+@Before(@BeforeElement( MySecurityFilter.class ))
+@Controller
+public class MyController { 
+
+}
+ 
+```
+
+Then create your implementing class for MySecurityFilter and make sure it's reachable by Spring:
+
+```
+@Component
+public class MySecurityFilter implements BeforeHandler {
+    @Override
+    public Flow handle(HttpServletRequest request, HttpServletResponse response, HandlerMethod handler, String[] flags) throws Exception {
+        //determine if this request is authorized, using daos or any other mechanism.
+        //you have full access to Spring context and autowiring here
+        //to halt this request and prevent execution of the controller, return Flow.HALT 
+        //you may also redirect to a login page here if desired
+        return Flow.CONTINUE;
+    }
+}
+```
+
+
+I like this better than Spring Security for the folloowing reasons:
 
 - Your security boundaries are easy to see in the controller file itself, just like mvc routes
 - Unlike Spring security boundaries, it is type-safe -- if you reorganize your packages, your security still works because it's defined in the file itself
@@ -16,7 +46,7 @@ This project makes it easy to annotate security or any other interceptors for yo
 
 2. include it in your project's pom.xml:
 
-```
+    ```
     <dependencies>
         <dependency>
             <groupId>com.kastkode</groupId>
@@ -24,20 +54,23 @@ This project makes it easy to annotate security or any other interceptors for yo
             <version>[1.0,)</version>
         </dependency>
     </dependencies>
-```
+    ```
 
 3. in your application, tell Spring to pick up the library. For instance in Spring Boot you would add this annotation to your Main starting class:
 
-```
+    ```
     @ComponentScan(basePackages = {"com.kastkode.springsandwich.filter", "com,your-app-here.*"})
     public class Main { ... }
-```
+    ```
 
 Notice that you also explicitly ComponentScan your Main package or anything else you want scanned, since you're overriding Spring Boot's default scanning.
 
-4. Now the fun part -- use it!  Write your handler that you'd like to invoke before your controller method:
+
+### How to use it
+
+Now the fun part -- use it!  Write your handler that you'd like to invoke before your controller method:
     
-```
+    ```
     import javax.servlet.http.HttpServletRequest;
     import javax.servlet.http.HttpServletResponse;
     import org.springframework.stereotype.Component;
@@ -62,42 +95,42 @@ Notice that you also explicitly ComponentScan your Main package or anything else
             return Flow.CONTINUE;
         }
     }
-```
+    ```
 
-5. Apply it do your controller as an annotation either at the class or the method (or both):
+Apply it do your controller as an annotation either at the class or the method (or both):
 
-```
+    ```
     @Before( @BeforeElement(RestrictByRole.class))
-```
+    ```
 
-6. You can also pass a list of strings for the interceptor to consider.  Here the flags "admin" and "manager" are passed in to the RestrictByRole implementation method
+You can also pass a list of strings for the interceptor to consider.  Here the flags "admin" and "manager" are passed in to the RestrictByRole implementation method
 
-```
+    ```
     @Before(
         @BeforeElement(value = RestrictByRole.class, flags = {"admin", "manager"})
     )
-```
+    ```
 
     
-7. You can apply several interceptors in sequence like this
+You can apply several interceptors in sequence like this
 
-```
+    ```
     @Before({
         @BeforeElement(IPWhiteListCheck.class),
         @BeforeElement(LoginWall.class),
         @BeforeElement(value = RestrictByRole.class, flags = {"admin", "manager"})
     })
-```
+    ```
 
-8. There's also an After interceptor you can use
+There's also an After interceptor you can use
 
-```
+    ```
     @After(
         @AfterElement(DoThisAfter.class)
     )
-```
+    ```
 
-9. Many common use cases have already been addressed in premade interceptors found in com/kastkode/springsandwich/filter/coldcuts/.  Consider extending them as a starting point for your interceptor
+Many common use cases have already been addressed in premade interceptors found in com/kastkode/springsandwich/filter/coldcuts/.  Consider extending them as a starting point for your interceptor
 
 
 ### FAQ
