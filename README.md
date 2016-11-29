@@ -2,7 +2,7 @@
 
 This project lets you annotate security or other interceptors for your Spring web controllers in much the same way that you normally annotate your routes or endpoints.  
 
-For example, to secure all the endpoints in your @Controller class, add an annotation like this:
+For example, to secure all the endpoints in your @Controller class, add a @Before annotation like this:
 
 ```
 @Before(@BeforeElement( MySecurityFilter.class ))
@@ -66,11 +66,11 @@ I like this better than Spring Security for the folloowing reasons:
 Notice that you also explicitly ComponentScan your Main package or anything else you want scanned, since you're overriding Spring Boot's default scanning.
 
 
-### How to use it
+### More details on how to use it
 
 Now the fun part -- use it!  Write your handler that you'd like to invoke before your controller method:
     
-    ```
+```
     import javax.servlet.http.HttpServletRequest;
     import javax.servlet.http.HttpServletResponse;
     import org.springframework.stereotype.Component;
@@ -95,40 +95,40 @@ Now the fun part -- use it!  Write your handler that you'd like to invoke before
             return Flow.CONTINUE;
         }
     }
-    ```
+```
 
 Apply it do your controller as an annotation either at the class or the method (or both):
 
-    ```
+```
     @Before( @BeforeElement(RestrictByRole.class))
-    ```
+```
 
 You can also pass a list of strings for the interceptor to consider.  Here the flags "admin" and "manager" are passed in to the RestrictByRole implementation method
 
-    ```
+```
     @Before(
         @BeforeElement(value = RestrictByRole.class, flags = {"admin", "manager"})
     )
-    ```
+```
 
     
 You can apply several interceptors in sequence like this
 
-    ```
+```
     @Before({
         @BeforeElement(IPWhiteListCheck.class),
         @BeforeElement(LoginWall.class),
         @BeforeElement(value = RestrictByRole.class, flags = {"admin", "manager"})
     })
-    ```
+```
 
 There's also an After interceptor you can use
 
-    ```
+```
     @After(
         @AfterElement(DoThisAfter.class)
     )
-    ```
+```
 
 Many common use cases have already been addressed in premade interceptors found in com/kastkode/springsandwich/filter/coldcuts/.  Consider extending them as a starting point for your interceptor
 
