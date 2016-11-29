@@ -9,6 +9,12 @@ For example, to secure all the endpoints in your @Controller class, add a @Befor
 @Controller
 public class MyController { 
 
+    @RequestMapping("/helloworld")
+    @ResponseBody
+    public String heyworld() {
+        return "hey there big n blue";
+    }
+
 }
  
 ```
