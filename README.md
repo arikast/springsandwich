@@ -105,7 +105,7 @@ public class RestrictByRole implements BeforeHandler {
 }
 ```
 
-Apply it do your controller as an annotation either at the class or the method (or both):
+Apply it to your controller as an annotation either at the class or the method (or both):
 
 ```
 @Before( @BeforeElement(RestrictByRole.class))
