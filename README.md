@@ -71,63 +71,63 @@ Notice that you also explicitly ComponentScan your Main package or anything else
 Now the fun part -- use it!  Write your handler that you'd like to invoke before your controller method:
     
 ```
-    import javax.servlet.http.HttpServletRequest;
-    import javax.servlet.http.HttpServletResponse;
-    import org.springframework.stereotype.Component;
-    import org.springframework.web.method.HandlerMethod;
-    import com.kastkode.springsandwich.filter.api.BeforeHandler;
-    import com.kastkode.springsandwich.filter.api.Flow;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.stereotype.Component;
+import org.springframework.web.method.HandlerMethod;
+import com.kastkode.springsandwich.filter.api.BeforeHandler;
+import com.kastkode.springsandwich.filter.api.Flow;
 
-    @Component
-    public class RestrictByRole implements BeforeHandler {
+@Component
+public class RestrictByRole implements BeforeHandler {
 
-        @Override
-        public Flow handle(HttpServletRequest request, HttpServletResponse response, HandlerMethod handler, String[] flags) throws Exception {
-            System.out.println("RestrictByRole logic executed, checking for these roles");
-            if(flags != null) {
-                for(String arg:flags) {
-                    System.out.println(arg);
-                }
+    @Override
+    public Flow handle(HttpServletRequest request, HttpServletResponse response, HandlerMethod handler, String[] flags) throws Exception {
+        System.out.println("RestrictByRole logic executed, checking for these roles");
+        if(flags != null) {
+            for(String arg:flags) {
+                System.out.println(arg);
             }
-
-            //or return Flow.HALT to halt this request and prevent execution of the controller
-            //you may also wish to redirect to a login page here
-            return Flow.CONTINUE;
         }
+
+        //or return Flow.HALT to halt this request and prevent execution of the controller
+        //you may also wish to redirect to a login page here
+        return Flow.CONTINUE;
     }
+}
 ```
 
 Apply it do your controller as an annotation either at the class or the method (or both):
 
 ```
-    @Before( @BeforeElement(RestrictByRole.class))
+@Before( @BeforeElement(RestrictByRole.class))
 ```
 
 You can also pass a list of strings for the interceptor to consider.  Here the flags "admin" and "manager" are passed in to the RestrictByRole implementation method
 
 ```
-    @Before(
-        @BeforeElement(value = RestrictByRole.class, flags = {"admin", "manager"})
-    )
+@Before(
+    @BeforeElement(value = RestrictByRole.class, flags = {"admin", "manager"})
+)
 ```
 
-    
+
 You can apply several interceptors in sequence like this
 
 ```
-    @Before({
-        @BeforeElement(IPWhiteListCheck.class),
-        @BeforeElement(LoginWall.class),
-        @BeforeElement(value = RestrictByRole.class, flags = {"admin", "manager"})
-    })
+@Before({
+    @BeforeElement(IPWhiteListCheck.class),
+    @BeforeElement(LoginWall.class),
+    @BeforeElement(value = RestrictByRole.class, flags = {"admin", "manager"})
+})
 ```
 
 There's also an After interceptor you can use
 
 ```
-    @After(
-        @AfterElement(DoThisAfter.class)
-    )
+@After(
+    @AfterElement(DoThisAfter.class)
+)
 ```
 
 Many common use cases have already been addressed in premade interceptors found in com/kastkode/springsandwich/filter/coldcuts/.  Consider extending them as a starting point for your interceptor
