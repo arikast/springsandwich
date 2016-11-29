@@ -76,7 +76,7 @@ Notice that here we explicitly ComponentScan our Main package as well since we'r
 
 ### More details on how to use SpringSandwich
 
-Now the fun part -- use it!  Write your handler that you'd like to invoke before your controller method:
+A full implementation for an interceptor might look like this:
     
 ```
 import javax.servlet.http.HttpServletRequest;
@@ -145,7 +145,7 @@ Many common use cases have already been addressed in premade interceptors found 
 
 - How is this different from a servlet filter?
     This has two main advantages over servlet filters. 
-    1. it can be directly applied via annotations
+    1. it can be directly applied via annotations, and is thus type-safe and will survive refactorings
     2. your interceptors have full access to the spring context.  For instance, it is difficult to write a standard servlet filter that uses your daos to lookup a user because typically your daos require the spring context, which won't be accessible from a servlet filter.  But in SpringSandwich, you have full access -- write your regular code like anywhere else.
 
 
