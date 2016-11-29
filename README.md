@@ -46,9 +46,11 @@ I like this better than Spring Security for the folloowing reasons:
 
 1. clone this repo and build and install to your local maven repo:
 
+    ```
     git clone git@github.com:arikast/springsandwich.git
     cd springsandwich
     mvn clean install
+    ```
 
 2. include it in your project's pom.xml:
 
