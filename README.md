@@ -2,7 +2,7 @@
 
 This project lets you annotate security or other interceptors for your Spring web controllers in much the same way that you normally annotate your routes or endpoints.  
 
-For example, to secure all the endpoints in your @Controller class, add a @Before annotation like this:
+For example, to secure all the endpoints in your @Controller class, add a @Before annotation like this (you can also add @Before annotations to individual methods for more granular control):
 
 ```
 @Before(@BeforeElement( MySecurityFilter.class ))
