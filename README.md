@@ -103,6 +103,8 @@ Notice that you also explicitly ComponentScan your Main package or anything else
 ### FAQ
 
 - How is this different from a servlet filter?
-    This has two main advantages over servlet filters. 1) it can be selectively applied via annotations, and 2) your interceptors have full access to the spring context.  For instance, it is difficult to write a standard servlet filter that uses your daos to lookup a user because typically your daos require the spring context, which won't be accessible from a servlet filter.  But in SpringSandwich, you have full access -- write your regular code like anywhere else.
+    This has two main advantages over servlet filters. 
+    1. it can be directly applied via annotations
+    2. your interceptors have full access to the spring context.  For instance, it is difficult to write a standard servlet filter that uses your daos to lookup a user because typically your daos require the spring context, which won't be accessible from a servlet filter.  But in SpringSandwich, you have full access -- write your regular code like anywhere else.
 
 
