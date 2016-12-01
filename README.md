@@ -36,7 +36,7 @@ public class MySecurityFilter implements BeforeHandler {
 ```
 
 
-I like this better than Spring Security for the folloowing reasons:
+I like this better than Spring Security for the following reasons:
 
 - Your security boundaries are easy to see in the controller file itself, just like mvc routes
 - Unlike Spring security boundaries, it is type-safe -- if you reorganize your packages, your security still works because it's defined in the file itself
