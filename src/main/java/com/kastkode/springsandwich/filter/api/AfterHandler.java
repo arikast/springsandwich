@@ -8,7 +8,9 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Component
-public interface AfterHandler {
+public interface AfterHandler extends Handler {
+	
 	public void handle(HttpServletRequest request, HttpServletResponse response, 
 			HandlerMethod handler, ModelAndView modelAndView, String[] flags) throws Exception;
+
 }

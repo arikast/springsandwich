@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 
 @Component
-public interface BeforeHandler {
+public interface BeforeHandler extends Handler {
 
 	public Flow handle(HttpServletRequest request, HttpServletResponse response, 
 			HandlerMethod handler, String[] flags) throws Exception;

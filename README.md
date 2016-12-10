@@ -44,7 +44,9 @@ I like this better than Spring Security for the following reasons:
 
 ### How to set it up
 
-1. clone this repo and build and install to your local maven repo:
+1. Java 8+ required, make sure you have it and your project is using it
+
+2. clone this repo and build and install to your local maven repo:
 
     ```
     git clone git@github.com:arikast/springsandwich.git
@@ -52,7 +54,7 @@ I like this better than Spring Security for the following reasons:
     mvn clean install
     ```
 
-2. include it in your project's pom.xml:
+3. include it in your project's pom.xml:
 
     ```
     <dependencies>
@@ -64,7 +66,7 @@ I like this better than Spring Security for the following reasons:
     </dependencies>
     ```
 
-3. in your application, tell Spring to pick up the library. For instance in Spring Boot you would add this annotation to your Main starting class:
+4. in your application, tell Spring to pick up the library. For instance in Spring Boot you would add this annotation to your Main starting class:
 
     ```
     @ComponentScan(basePackages = {"com.kastkode.springsandwich.filter", "com.your-app-here.*"})
