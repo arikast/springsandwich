@@ -146,8 +146,10 @@ Many common use cases have already been addressed in premade interceptors found 
 ### FAQ
 
 - How is this different from a servlet filter?
-    This has two main advantages over servlet filters. 
+    SpringSandwich has these main advantages over servlet filters. 
     1. it can be directly applied via annotations, and is thus type-safe and will survive refactorings
     2. your interceptors have full access to the spring context.  For instance, it is difficult to write a standard servlet filter that uses your daos to lookup a user because typically your daos require the spring context, which won't be accessible from a servlet filter.  But in SpringSandwich, you have full access -- write your regular code like anywhere else.
+    3. By re-using the routing information already defined in your controller instead of redundantly elsewhere defining routes to apply them to, SpringSandwich facilitates DRY software coding principles and thus leaves less room for error.  In other words, it's a cleaner solution!
+
 
 
