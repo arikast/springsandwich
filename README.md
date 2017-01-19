@@ -146,9 +146,12 @@ Many common use cases have already been addressed in premade interceptors found 
 ### FAQ
 
 - How is this different from Spring AOP or Spring Security?
+
     1. SpringSandwich is type-safe, whereas Spring AOP and Spring Security rely on String-based annotations which cannot be tested until runtime and which do not survive refactorings.  Spring AOP furthermore uses global String expressions, making it sometimes less transparent about where advice is being applied.
     2. SpringSandwich is vastly simpler to use. This is of course hard to prove; you'll have to just try and compare for yourself.  But you may wish to have a quick look at Spring AOP's [documentation](https://docs.spring.io/spring/docs/current/spring-framework-reference/html/aop.html "Spring AOP") for comparison.
+
 - How is this different from a servlet filter?
+
     SpringSandwich has these main advantages over servlet filters. 
     1. it can be directly applied via annotations, and is thus type-safe and will survive refactorings
     2. your interceptors have full access to the spring context.  For instance, it is difficult to write a standard servlet filter that uses your daos to lookup a user because typically your daos require the spring context, which won't be accessible from a servlet filter.  But in SpringSandwich, you have full access -- write your regular code like anywhere else.
