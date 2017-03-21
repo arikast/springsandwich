@@ -26,42 +26,43 @@ public class InterceptDelegator extends HandlerInterceptorAdapter {
 
 	@Autowired
 	ApplicationContext appContext;
-	
+
 	@Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		//System.out.println(String.format("hey %s was called first!", this.getClass().getName()));
-		
+        if (!(handler instanceof HandlerMethod)) return true;
+
 		HandlerMethod handlerMethod = (HandlerMethod) handler;
 	    Before classInterceptors = handlerMethod.getMethod().getDeclaringClass().getAnnotation(Before.class);
         if (! preHandleInterceptors(classInterceptors, request, response, handlerMethod)) {
         	return false;
         }
-	    
+
 	    Before methodInterceptors = handlerMethod.getMethod().getAnnotation(Before.class);
         if (! preHandleInterceptors(methodInterceptors, request, response, handlerMethod)) {
         	return false;
         }
-		
-        return super.preHandle(request, response, handler);
+
+        return true;
     }
-	
+
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-		HandlerMethod handlerMethod = (HandlerMethod) handler;
+        if (!(handler instanceof HandlerMethod)) return;
+
+        HandlerMethod handlerMethod = (HandlerMethod) handler;
 	    After classInterceptors = handlerMethod.getMethod().getDeclaringClass().getAnnotation(After.class);
         postHandleInterceptors(classInterceptors, request, response, handlerMethod, modelAndView);
-	    
+
 	    After methodInterceptors = handlerMethod.getMethod().getAnnotation(After.class);
         postHandleInterceptors(methodInterceptors, request, response, handlerMethod, modelAndView);
-        
-		super.postHandle(request, response, handler, modelAndView);
 	}
 
-	private boolean preHandleInterceptors(Before interceptors, HttpServletRequest request, HttpServletResponse response, 
+	private boolean preHandleInterceptors(Before interceptors, HttpServletRequest request, HttpServletResponse response,
 			HandlerMethod handlerMethod) throws Exception {
 		if(interceptors == null) return true;
-		
-		Flow result = Flow.CONTINUE;		
+
+		Flow result = Flow.CONTINUE;
 		for(BeforeElement classWithArgs:interceptors.value()) {
     		BeforeHandler interceptInstance = appContext.getBean(classWithArgs.value());
     		result = interceptInstance.handle(request, response, handlerMethod, classWithArgs.flags());
@@ -70,11 +71,11 @@ public class InterceptDelegator extends HandlerInterceptorAdapter {
 		return (result == Flow.CONTINUE);
 	}
 
-	private void postHandleInterceptors(After interceptors, HttpServletRequest request, HttpServletResponse response, 
+	private void postHandleInterceptors(After interceptors, HttpServletRequest request, HttpServletResponse response,
 			HandlerMethod handlerMethod, ModelAndView modelAndView) throws Exception {
 			if(interceptors == null) return;
-			
-			Flow result = Flow.CONTINUE;		
+
+			Flow result = Flow.CONTINUE;
 			for(AfterElement classWithArgs:interceptors.value()) {
 	    		AfterHandler interceptInstance = appContext.getBean(classWithArgs.value());
 	    		interceptInstance.handle(request, response, handlerMethod, modelAndView, classWithArgs.flags());
