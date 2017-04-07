@@ -15,6 +15,18 @@
         <jcl-over-slf4j.version>1.7.5</jcl-over-slf4j.version>
     </properties>
 
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>git@github.com:arikast/springsandwich.git</url>
+    </scm>
+
     <dependencies>
 
         <!-- Unit Test -->
