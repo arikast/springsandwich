@@ -29,7 +29,6 @@ public class InterceptDelegator extends HandlerInterceptorAdapter {
 	
 	@Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		//System.out.println(String.format("hey %s was called first!", this.getClass().getName()));
 		
 		HandlerMethod handlerMethod = (HandlerMethod) handler;
 	    Before classInterceptors = handlerMethod.getMethod().getDeclaringClass().getAnnotation(Before.class);
