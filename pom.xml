@@ -5,7 +5,8 @@
   <artifactId>springsandwich</artifactId>
   <packaging>jar</packaging>
   <version>1.0.1</version>
-  <name>SpringSandwich</name>
+  <name>${project.groupId}:${project.artifactId}</name>
+  <description>Simplified, Annotation-based Controller Filtering for Spring Web.  Can serve an alternative to Spring Security among other uses.</description>
   <url>http://springsandwich.com</url>
     <properties>
         <jdk.version>1.8</jdk.version>
@@ -24,8 +25,19 @@
     </licenses>
 
     <scm>
-        <url>git@github.com:arikast/springsandwich.git</url>
+      <connection>scm:git:git://github.com:arikast/springsandwich.git</connection>
+      <developerConnection>scm:git:ssh://github.com:arikast/springsandwich.git</developerConnection>
+      <url>https://github.com/arikast/springsandwich</url>
     </scm>
+
+    <developers>
+        <developer>
+          <name>Ari Kast</name>
+          <email>ari@mascii.org</email>
+          <organization>Kastkode</organization>
+          <organizationUrl>http://kastkode.com</organizationUrl>
+        </developer>
+    </developers>
 
     <dependencies>
 
