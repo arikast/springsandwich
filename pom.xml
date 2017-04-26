@@ -5,7 +5,8 @@
   <artifactId>springsandwich</artifactId>
   <packaging>jar</packaging>
   <version>1.0.2</version>
-  <name>Annotation-based Controller Filtering for Spring Web</name>
+  <name>${project.groupId}:${project.artifactId}</name>
+  <description>Simplified, Annotation-based Controller Filtering for Spring Web.  Can serve an alternative to Spring Security among other uses.</description>
   <url>http://springsandwich.com</url>
     <properties>
         <jdk.version>1.8</jdk.version>
@@ -14,6 +15,67 @@
         <logback.version>1.0.13</logback.version>
         <jcl-over-slf4j.version>1.7.5</jcl-over-slf4j.version>
     </properties>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+      <connection>scm:git:git://github.com:arikast/springsandwich.git</connection>
+      <developerConnection>scm:git:ssh://github.com:arikast/springsandwich.git</developerConnection>
+      <url>https://github.com/arikast/springsandwich</url>
+    </scm>
+
+    <developers>
+        <developer>
+          <name>Ari Kast</name>
+          <email>ari@mascii.org</email>
+          <organization>Kastkode</organization>
+          <organizationUrl>http://kastkode.com</organizationUrl>
+        </developer>
+    </developers>
+    <profiles>
+        <profile>
+            <id>SourceNDocs</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+
+            <build>
+            <plugins>
+                <plugin>
+                  <groupId>org.apache.maven.plugins</groupId>
+                  <artifactId>maven-source-plugin</artifactId>
+                  <executions>
+                    <execution>
+                      <id>attach-sources</id>
+                      <goals>
+                        <goal>jar</goal>
+                      </goals>
+                    </execution>
+                  </executions>
+                </plugin>
+
+                <plugin>
+                  <groupId>org.apache.maven.plugins</groupId>
+                  <artifactId>maven-javadoc-plugin</artifactId>
+                  <executions>
+                    <execution>
+                      <id>attach-javadocs</id>
+                      <goals>
+                        <goal>jar</goal>
+                      </goals>
+                    </execution>
+                  </executions>
+                </plugin>
+            </plugins>
+            </build>
+        </profile>
+    </profiles>
 
     <dependencies>
 
@@ -76,25 +138,24 @@
     <build>
         <plugins>
           <!-- Set JDK Compiler Level -->
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <version>2.3.2</version>
-            <configuration>
-                <source>${jdk.version}</source>
-                <target>${jdk.version}</target>
-            </configuration>
-          </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>${jdk.version}</source>
+                    <target>${jdk.version}</target>
+                </configuration>
+            </plugin>
 
-        <plugin>
-            <artifactId>maven-war-plugin</artifactId>
-            <version>2.4</version>
-            <configuration>
-                <failOnMissingWebXml>false</failOnMissingWebXml>
-            </configuration>
-        </plugin>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
 
-        </plugins>
-
+       </plugins>
   </build>
 </project>
