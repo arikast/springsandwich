@@ -61,7 +61,7 @@ I like this better than Spring Security for the following reasons:
         <dependency>
             <groupId>com.kastkode</groupId>
             <artifactId>springsandwich</artifactId>
-            <version>[1.0,)</version>
+            <version>[1.0.2,)</version>
         </dependency>
     </dependencies>
     ```
