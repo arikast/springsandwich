@@ -78,11 +78,9 @@ public class InterceptDelegator extends HandlerInterceptorAdapter {
 		HandlerMethod handlerMethod, ModelAndView modelAndView) throws Exception {
 		if(interceptors == null) return;
 
-		Flow result = Flow.CONTINUE;
 		for(AfterElement classWithArgs:interceptors.value()) {
 	    	AfterHandler interceptInstance = appContext.getBean(classWithArgs.value());
 	    	interceptInstance.handle(request, response, handlerMethod, modelAndView, classWithArgs.flags());
-	    	if(result != Flow.CONTINUE) break;
 	    }
 	}
 }
