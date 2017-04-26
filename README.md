@@ -46,7 +46,7 @@ I like this better than Spring Security for the following reasons:
 
 1. Java 8+ required, make sure you have it and your project is using it
 
-2. clone this repo and build and install to your local maven repo:
+2. (Skip this step unless you specifically want to build it yourself) To build from master, clone this repo and build and install to your local maven repo:
 
     ```
     git clone git@github.com:arikast/springsandwich.git
